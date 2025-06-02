@@ -87,6 +87,8 @@ setInterval(async () => {
         },
         body: JSON.stringify({ payload: payload }),
       });
+
+      state = false;
     }
   }
 }, 60000);
