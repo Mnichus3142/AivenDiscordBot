@@ -27,19 +27,27 @@ const isPayload = (obj: any): obj is payload => {
 }
 
 const sendDiscordMessage = async (message: payload) => {
+  const newMessage = {
+    "content": null,
+    "embeds": [
+      {
+        "title": `${message.application} - ${message.type}`,
+        "description": message.message,
+        "timestamp": message.timestamp,
+        "color": message.type === "Error" ? 0xFF0000 : 0x00FF00,
+      }
+    ]
+  }
+
   await fetch(webhookUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      content: JSON.stringify(message, null, 2),
-    }),
+    body: JSON.stringify(newMessage),
   })
     .then((response) => {
-      if (response.ok) {
-        console.log("Message sent successfully!");
-      } else {
+      if (!response.ok) {
         response.text().then((text) => console.error("Error:", text));
       }
     })

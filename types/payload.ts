@@ -1,6 +1,6 @@
 type payload = {
     application: string;
-    type: "info" | "error";
+    type: "Info" | "Error";
     message: string;
     timestamp: string;
 }
